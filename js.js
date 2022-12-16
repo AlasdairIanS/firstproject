@@ -1,23 +1,24 @@
-let products = [];
-
-fetchData();
-
-function fetchData() {
-  fetch('https://dummy.restapiexample.com/api/v1/employees'){
-    'mode': 'cors',
-    'headers': {
-        'Access-Control-Allow-Origin': '*',
+fetch("https://dummy.restapiexample.com/api/v1/employees", {
+    "method": "GET",
+    "headers": {
+        "x-rapidapi-host": "host",
+        "x-rapidapi-key": "key",
     }
+    })
     .then(response => response.json())
-    .then(json => products = json)
-    .then(() => {
-      for (let item of products) {
-        toAppend.innerHTML += `
-<div class="card">
-<p>${item.employee_name}</p>
-<h2>${item.employee_salary}</h2>
-</div>
-`;
-      }
-    });
-}
+    .then(json => {
+  
+        // Create a variable to store HTML
+        let li = `<tr><th>Name</th><th>Salary</th></tr>`;
+       
+        // Loop through each data and add a table row
+        json.forEach(user => {
+            li += `<tr>
+                <td>${user.employee_name} </td>
+                <td>${user.employee_salary}</td>        
+            </tr>`;
+        });
+  
+    // Display result
+    document.getElementById("users").innerHTML = li;
+});
