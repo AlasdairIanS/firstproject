@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type="text/javascript" src="js.js"></script>
+        <link rel="stylesheet" href="css.css" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" 
+              content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>USERS</h1>
+        <div id="users">
+        </div>
+        <button class="open-button" onclick="abrirFormulario()">Añadir usuario</button>
+
+<div class="form-popup" id="myForm">
+  <form class="form-container" id="form">
+    Name<input type="text" name="Name"><br><br>
+            Username<input type="text" name="Username"><br><br>
+            Email <input type="text" name="Email"><br><br>
+            Address <input type="text" name="Address"><br><br>
+            Phone <input type="text" name="Phone" ><br><br>
+            Website <input type="text" name="Website"><br><br>
+            <button type="submit" class="btn">Submit</button>
+            <button type="reset" class="btn reset">Reset</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+            <script>
+                const formEl = document.querySelector('#form')
+    formEl.addEventListener('submit', event =>{
+      event.preventDefault();
+    
+      const formData = new FormData(formEl)
+      const data = new URLSearchParams(formData);
+    
+      fetch('https://jsonplaceholder.typicode.com/users', {
+        method: 'POST',
+        body: data
+      }).then(res => res.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
+      .then (document.getElementById("form").reset())
+    })
+</script>
+
+    </body>
+</html>
